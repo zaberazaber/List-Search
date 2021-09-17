@@ -3,10 +3,16 @@ import React from 'react';
 class SearchBar extends React.Component {
   state = { term: '' };
 
+  onFormSubmit = (event) => {
+    event.preventDefault(); //we do this to prevent the default behaviour on form submition on enter
+    this.props.onSubmitCallback(this.state.term) // calling the call back
+    // console.log(this.state.term); // this will also throw an error cannot read state of undefined. to resolve this error we have to bind the function or we have to make this function an arrow function
+  }
+
   render() {
     return (
       <div className="ui segment">
-        <form className="ui form">
+        <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
             <label>Image Search</label>
             <input
